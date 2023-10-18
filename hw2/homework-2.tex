@@ -1,0 +1,584 @@
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[11pt]{article}
+\usepackage{cs475} % Required for custom headers
+\usepackage{fancyhdr} % Required for custom headers
+\usepackage{lastpage} % Required to determine the last page for the footer
+\usepackage{extramarks} % Required for headers and footers
+\usepackage{graphicx} % Required to insert images
+\usepackage{ulem} % Required for Cross out text
+\usepackage{amsmath} % Required for Math Stuff
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{hyperref,color,fullpage}
+\usepackage{wrapfig}
+\usepackage{textpos}
+\usepackage{sidecap}
+\usepackage{graphicx, mathtools, indentfirst, longtable,mathtools,enumerate}
+
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+    unicode=false,          % non-Latin characters in Acrobat’s bookmarks
+    pdftoolbar=true,        % show Acrobat’s toolbar?
+    pdfmenubar=true,        % show Acrobat’s menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={My title},    % title
+    pdfauthor={Author},     % author
+    pdfsubject={Subject},   % subject of the document
+    pdfcreator={Creator},   % creator of the document
+    pdfproducer={Producer}, % producer of the document
+    pdfkeywords={keyword1, key2, key3}, % list of keywords
+    pdfnewwindow=true,      % links in new PDF window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=black,          % color of internal links (change box color with linkbordercolor)
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=blue           % color of external links
+}
+
+% Margins
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1} % Line spacing
+
+% Set up the header and footer
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName} % Top left header
+\rhead{}%\firstxmark} % Top right header
+%\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+% \DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+% \DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+
+\renewcommand{\maximize}[3]{
+\begin{aligned}
+& \underset{#1}{\textrm{maximize}}
+& & #2 \\
+& \textrm{subject to}
+& &  #3
+\end{aligned}
+}
+
+\renewcommand{\norm}[1]{\|#1\|}
+\newcommand{\removed}[1]{}
+\renewcommand{\v}{\textrm{v}}
+\renewcommand{\a}{\textrm{a}}
+\newcommand{\A}{\textrm{A}}
+\renewcommand{\Z}{\textrm{Z}}
+\renewcommand{\L}{\textrm{L}}
+\renewcommand{\H}{\textrm{H}}
+\newcommand{\Dd}{\mathcal{D}}
+\renewcommand{\E}{\mathbb{E}}
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT STRUCTURE COMMANDS
+%	Skip this unless you know what you're doing
+%----------------------------------------------------------------------------------------
+
+%% Header and footer for when a page split occurs within a problem environment
+%\newcommand{\enterProblemHeader}[1]{
+%\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+%\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+%}
+%
+%% Header and footer for when a page split occurs between problem environments
+%\newcommand{\exitProblemHeader}[1]{
+%\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+%\nobreak\extramarks{#1}{}\nobreak
+%}
+
+\setcounter{secnumdepth}{0} % Removes default section numbers
+\newcounter{homeworkProblemCounter} % Creates a counter to keep track of the number of problems
+
+\newcommand{\homeworkProblemName}{}
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]{ % Makes a new environment called homeworkProblem which takes 1 argument (custom name) but the default is "Problem #"
+\stepcounter{homeworkProblemCounter} % Increase counter for number of problems
+\renewcommand{\homeworkProblemName}{#1} % Assign \homeworkProblemName the name of the problem
+\section{\homeworkProblemName} % Make a section in the document with the custom problem count
+%\enterProblemHeader{\homeworkProblemName} % Header and footer within the environment
+}{
+%\exitProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+\newcommand{\problemAnswer}[1]{%#1% Defines the problem answer command with the content as the only argument
+\noindent\framebox[0.95\columnwidth][c]{\begin{minipage}{0.92\columnwidth}\color{blue}{#1}\end{minipage}} % Makes the box around the problem answer and puts the content inside
+}
+
+% \renewcommand{\problemAnswer}[1]{}
+
+
+\newcommand{\homeworkSectionName}{}
+\newenvironment{homeworkSection}[1]{ % New environment for sections within homework problems, takes 1 argument - the name of the section
+\renewcommand{\homeworkSectionName}{#1} % Assign \homeworkSectionName to the name of the section from the environment argument
+\subsection{\homeworkSectionName} % Make a subsection with the custom name of the subsection
+%\enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]} % Header and footer within the environment
+}{
+%\enterProblemHeader{\homeworkProblemName} % Header and footer after the environment
+}
+
+%----------------------------------------------------------------------------------------
+%	NAME AND CLASS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hmwkTitle}{Assignment 2} % Assignment title
+\newcommand{\hmwkDueDate}{{\color{red}{October 18th}}, 2023} % Due date
+\newcommand{\hmwkClass}{CS 475 Machine Learning (Fall 2023)} % Course/class
+\newcommand{\hmwkDueTime}{4:00 PM ET}
+\newcommand{\hmwkClassInstructor}{} % Teacher/lecturer
+\newcommand{\hmwkAuthorName}{} % Your name
+
+\renewcommand{\minimize}[3]{
+\begin{aligned}
+& \underset{#1}{\textrm{minimize}}
+& & #2 \\
+& \textrm{subject to}
+& &  #3
+\end{aligned}
+}
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title{
+\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+\large\vspace{-0in}\Large{Due\ on\ \hmwkDueDate \ at \hmwkDueTime}\\
+\vspace{0in}\large{\textit{\hmwkClassInstructor\ }}
+\vspace{0.1in}
+\\
+\textbf{Instructions}: Please read these instructions carefully and follow them precisely. Feel free to ask the instructor if anything is unclear!\\
+\begin{enumerate}
+\vspace*{-3pt}
+\item Please submit your solutions electronically via \href{https://www.gradescope.com/courses/584908}{Gradescope}. 
+\vspace*{-3pt}
+\item Please submit a PDF file for the written component of your solution including derivations, explanations, etc. You can create this PDF in any way you want: typeset the solution in LATEX (recommended), type it in Word or a similar program and convert/export to PDF. You may not hand write the solution.  
+We recommend that you restrict your solutions to the space allocated for each problem; you may need to adjust the white space by tweaking the argument to  \texttt{$\backslash$vspace\{xpt\}} command. Please name this document $<$firstname-lastname$>$-sol2.pdf.
+\vspace*{-3pt}
+\item Submit the empirical component of the solution (Python code and the documentation of the experiments you are asked to run, including figures) in a Jupyter notebook file.
+\vspace*{-3pt}
+% \item In addition, you will need to submit your predictions on the handwritten digit recognition tasks to \texttt{Kaggle}, as described below, according to the competition rules. 
+\vspace*{-3pt}
+\item \textbf{Late submissions:} You have a total of 96 late hours for the entire semester that you may use as you deem fit. The 
+There is no additional grace period for this submission. 
+After you have used up your quota of 96 later hours, there will be a penalty of 100\% of your grade on a late submission for this assignment.  
+\item \textbf{What is the required level of detail?} When asked to derive something, please clearly state the assumptions, if any, and strive for balance: justify any non-obvious steps, but try to avoid superfluous explanations. When asked to plot something, please include the figure as well as the code used to plot it (and clearly explain in the README what the relevant files are). If multiple entities appear on a plot, make sure that they are clearly distinguishable (by color or style of lines and markers). When asked to provide a brief explanation or description, try to make your answers concise, but do not omit anything you believe is important. When submitting code, please make sure it's reasonably documented, and describe succinctly in the written component of the solution what is done in each \texttt{py}-file.
+\end{enumerate}
+\vspace{-0.08in}
+{\Large\textbf{Name: \underline{\hspace{200pt}}}}
+}
+\date{}
+
+%----------------------------------------------------------------------------------------
+\renewcommand{\hat}{\widehat}
+\begin{document}
+
+\maketitle
+\vspace{-0.7in}
+
+\clearpage
+
+%----------------------------------------------------------------------------------------
+%	PART II
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkSection}{I. Error Decomposition} 
+
+We saw in class that we can decompose the true risk of the least squares solution in terms of approximation error and the estimation error. Note though that risk of the least squares is a random variable since it is obtained on random draw of an i.i.d. sample from the population. Here we investigate the generalization error (aka, the expected risk) of the least squares procedure, where the expectation is over the distribution over the training data. 
+
+\paragraph{Learning algorithm $\mathcal{A}$.} We consider the usual setting with $\mathcal{X} \subseteq \mathbb{R}^d,$ $\mathcal{Y} = \mathbb{R}.$ Let $P_{XY}$ be a joint distribution over $\mathcal{X} \times \mathcal{Y}$, and $S \sim P^n_{XY}$ denote an i.i.d. sample of size $n$. Let $\mathcal{H} = \{ h : \mathcal{X} \to \mathcal{Y}\} \subset \mathcal{Y}^\mathcal{X}$ represent the hypothesis class and $\mathcal{A}: (\mathcal{X} \times \mathcal{Y})^* \to \mathcal{H}$ denote the learning algorithm (e.g., empirical risk minimization) that given a dataset $S= \{(\textrm{x}_i, y_i) \}_{i=1}^n \sim P^n_{XY}$ returns the predictor 
+\begin{equation}
+\widehat{h}_S \triangleq \mathcal{A}(S).
+\end{equation} 
+% empirical risk minimization rule that given a dataset $S= \{\textrm{x}_i, y_i \}_{i=1}^n \sim P_{XY}$ returns the predictor $\widehat{h}_n = \mathcal{A}(S)$ such that 
+%\begin{equation}
+%\widehat{h}_n = \arg \min_{h \in \mathcal{H}} \frac{1}{n} \sum_{i=1}^n \left(y_i - h(\textrm{x}_i) \right)^2. 
+%\end{equation}
+
+
+\paragraph{Expected Output $\bar{h}$ of the Learning Algorithm.} Given the learning rule $\mathcal{A}$, we denote by $\bar{h}$ the expected output of the algorithm where the expectation is with respect to the distribution over the training dataset:
+\begin{equation}
+\bar{h} = \mathbb{E}_{S \sim P^n_{XY}} \left[ \widehat{h}_S \right].  
+\end{equation}
+
+%Denote the map $h \in \mathcal{H}$ that minimizes the population risk as $h^*$, i.e.,
+%\begin{equation}
+%h^* = \arg \min_{h \in \mathcal{H}} \mathbb{E}_{(\textrm{x}, y)\sim P_{X, Y}} \left[ (y - h(\textrm{x}))^2 \right]. 
+%\end{equation}
+ 
+\paragraph{Bayes Optimal Regression Function.} 
+The Bayes optimal rule $h^* \in \mathcal{Y}^\mathcal{X}$  is the unrestricted map from $\mathcal{X} \to \mathcal{Y}$ that minimizes the population risk, $h^* = \arg \min_{h: \mathcal{X} \to \mathcal{Y}} \mathbb{E}_{(\textrm{x}, y)\sim P_{X, Y}} \left[ (y - h(\textrm{x}))^2 \right].$ 
+We showed in class that 
+\begin{equation}
+h^*(x) = \mathbb{E}_{{Y|X}}[Y | X=\textrm{x}],
+\end{equation}
+ where expectation is with respect to the conditional distribution $P_{Y|X}$ of the labels given the inputs. In other words, the Bayes optimal predictor assigns the label you would expect to obtain, given a feature vector $\textrm{x}$.\\
+
+\paragraph{Expected Risk (aka, generalization error) of $\mathcal{A}$.} We measure the performance of any learning algorithm $\mathcal{A}$ for least squares regression in terms of its expected risk,
+\begin{equation}
+\mathbb{E}_{S \sim P^n_{XY}} \mathbb{E}_{(\textrm{x}, y) \sim P_{XY}} \left[ (y - \widehat{h}_S(\textrm{x}))^2 \right]. 
+\end{equation} 
+In this problem, we will decompose the generalization error into three meaningful terms. 
+\vspace*{10pt}
+
+\begin{enumerate}
+\item[] \textbf{Problem 1 [20 points] \hspace*{3pt}} 
+\begin{enumerate}
+    \item 
+We begin by showing that 
+\begin{equation}
+\label{eqn:decomp}
+\mathbb{E}_{S \sim P^n_{XY}} \mathbb{E}_{(\textrm{x}, y) \sim P_{XY}}  \left[ (y - \widehat{h}_S(\textrm{x}))^2 \right] 
+= 
+\mathbb{E}_{S \sim P^n_{XY}} \mathbb{E}_{(\textrm{x}, y) \sim P_{XY}}  \left[ (\bar{h}(\textrm{x})-\widehat{h}_S(\textrm{x}))^2 \right]
++
+ \mathbb{E}_{(\textrm{x}, y)} \left[ (y - \bar{h}(\textrm{x}))^2 \right].
+ \end{equation} 
+ We refer to the first term in the decomposition as ``variance.'' Discuss why. 
+ 
+{\emph{Hint: Write $y - \widehat{h}_S(\textrm{x})$ as $y - \bar{h}(\textrm{x}) + \bar{h}(\textrm{x}) - \widehat{h}_S(\textrm{x})$. Expand the square and argue that the cross-term is zero. }}
+
+\problemAnswer{
+\vspace*{150pt}
+}
+
+\item Show that we can further express the second term in the decomposition above (on the RHS of Equation~\ref{eqn:decomp}) as follows. 
+\begin{equation}
+\label{eqn:decomp2}
+\!\!\!\!\!\mathbb{E}_{(\textrm{x}, y) \sim P_{XY}}   \left[ (y - \bar{h}(\textrm{x}))^2 \right]
+=
+\mathbb{E}_{(\textrm{x}, y) \sim P_{XY}}   \left[ ( y - h^*(\textrm{x}))^2 \right]
+\!+\!  
+\mathbb{E}_{(\textrm{x}, y) \sim P_{XY}}   \left[ (h^*(\textrm{x}) - \bar{h}(\textrm{x}))^2 \right]. 
+ \end{equation} 
+ We refer to the terms on the RHS above as ``noise'' and ``bias-squared.'' Discuss why. \\
+  
+  {\emph{Hint: Write $y - \bar{h}(\textrm{x})$ as $y - h^*(\textrm{x}) + h^*(\textrm{x}) - \bar{h}(\textrm{x})$. Expand the square and argue that the cross-term is zero. }}
+
+
+\problemAnswer{
+\vspace*{150pt}
+}
+
+
+
+\item Discuss how the decomposition of the expected error in terms of bias, variance and the noise terms informs the design of a good learning algorithm. 
+
+\problemAnswer{
+\vspace*{150pt}
+}
+
+
+\end{enumerate}
+\end{enumerate}
+
+\end{homeworkSection}
+
+\clearpage
+
+
+%----------------------------------------------------------------------------------------
+%	PART II
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkSection}{II. Ridge Regression} 
+
+We saw in class that maximizing log-likelihood under the Gaussian noise model is equivalent to minimizing squared loss. In this problem, we will show that maximizing the log-posterior is equivalent to ridge ($L_2$-regularized) linear least squares regression. We consider the following Gaussian noise model: $y = \w^\top \x + \nu$, where $\nu \sim \mathcal{N}(\nu;0,\sigma^2)$. \\
+
+Additionally, we assume some belief about the value of $\w$ before seeing any data. In particular, we assume a Gaussian prior distribution on $\w \in \R^d$ (note that we we do not regularize for the coefficient, $w_0$, of the constant term): {{$\w \sim \mathcal{N}(\w;0,\frac{1}{\mu} \textrm{I})$}}, where $\mu>0$ is the ``precision" (inverse variance) of the prior distribution. \\
+
+Given $n$ training examples $(\x_1, y_1), (\x_2, y_2), \ldots, (\x_n, y_n)$, let $\X \in \mathbb{R}^{N \times {d}}$ denote the design matrix, 
+and $\y \in \mathbb{R}^n$ denote the response vector. Instead of log-likelihood, the objective becomes log-posterior, $p(\w|\y, \X)$, 
+and we denote the maximum a-posteriori (MAP) estimate as 
+$$
+\widehat{\w}_{\textrm{MAP}} = \arg\max_{\w \in \R^{d+1}} \sum_{i=1}^n \log p(y_i~|~\x_i, \w) + \log p(\w).
+$$
+
+{{{\bf{Note:}} The vector $\w \in \R^{d+1}$ includes the offset $w_0.$ The prior $p(\w)$ is defined only over $w_1, \ldots, w_d$}.}
+
+\vspace*{10pt}
+
+\begin{enumerate}
+\item[] \textbf{Problem 2 [20 points] \hspace*{3pt}} 
+\begin{enumerate}
+    \item 
+Show that maximizing log-posterior with Gaussian noise model and Gaussian prior is equivalent to ridge regression problem, with regularization parameter $\mu \sigma^2$:  
+\begin{equation}
+\label{eqn:regu}
+\widehat{\w}_{\textrm{MAP}}= \arg\min_{\w \in \R^{d+1}} \left\{ \sum_{i=1}^{n} (y_i - \w \cdot \x_i)^2 + \mu \sigma^2 \sum_{j=1}^{d} w_j^2 \right\}. 
+\end{equation}
+
+\problemAnswer{
+\vspace*{250pt}
+}
+
+\item 
+Give a closed-form solution for $\widehat{\w}_{\textrm{MAP}}$. 
+
+
+\problemAnswer{
+\vspace*{100pt}
+}
+
+
+\item 
+
+
+In this part, we % study regularization for binary classification, with $\mathcal{X} \subseteq \R^d$ and $\mathcal{Y} =\{-1, +1 \}$. We 
+consider the logistic model, which is defined as
+\[
+p(y=1| \x)=\sigma(\w^\top \x)
+\]
+where $\sigma(z)=\frac{1}{1+e^{-z}}$ is the logistic function.
+Now consider the Laplace distribution, $\mathcal{L}(\mu, b)$, whose probability density given by 
+\[
+f_{\mathcal{L}}(z \mid \mu, b)=\frac{1}{2 b} \exp \left(-\frac{|z-\mu|}{b}\right). 
+\]
+Here $\mu$ is referred to as the location parameter and $b$ is the scale parameter. We assume a Laplacian prior on $\w\in\mathbb{R}^{d+1}$, i.e., each component $w_i$ of the vector $\w$ is independently and identically distributed as $\w_i\sim\mathcal{L}(0,b)$. Show that maximizing log-posterior with the logistic regression model and Laplacian prior leads to L1 regularization, i.e., maximizing the log-posterior is equivalent to solving the following problem:
+\[
+\widehat{\w}_{\text{MAP}}=\arg\min_\w \left\{-\sum_{i=1}^n\left(y_i\log (\sigma(\w^\top \x_i))+(1-y_i)\log(1-\sigma(\w^\top \x_i)\right)+\lambda\|\w\|_1\right\}. 
+\]
+What is the value of $\lambda$?\\
+
+\problemAnswer{
+\vspace*{250pt}
+}
+
+
+\end{enumerate}
+\end{enumerate}
+
+\end{homeworkSection}
+
+\clearpage
+
+
+%----------------------------------------------------------------------------------------
+%	PART I
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkSection}{III. Optimal Classification} 
+We have seen in class that the minimal risk for a particular joint distribution
+$p(\x, y)$ under $0/1$ loss
+\[ L_{0/1}(\hat{y}, y) = \left\{ \begin{array}{ccc} 0, & \textrm{ if } & \hat{y} = y, \\ 1, &\textrm{ if } &  \hat{y} \neq y \end{array} \right. \]
+is attained by the Bayes classifier $h^*(\x) = \textrm{argmax}_c p(c | \x)$. One may suspect that this bound is limited to \textit{deterministic} classifiers. An attempt to ``beat'' this bound, then, could be based on the following, \textit{randomized} classifier. Define, for any data point $\x$, a probability distribution $q(c | \x)$ over class labels $c$ conditioned on the input $\x$. The resulting randomized classifier (for which $q$ serves as a parameter), given a data point $\x$, draws a random class label from $q$:
+
+\[ h_r(\x;q) = c_r, \qquad c_r \sim q(c | \x) \]
+
+To express the risk of this classifier we need to take the expectation over
+all possible outcomes of the random decision:
+\[
+R(h_r; q) = \int_{\x} \sum_{c=1}^{C} \sum_{c'=1}^{C} L_{0/1}(c',c) q(c_r = c' | \x) p(\x,y=c) d \x
+\]
+
+\begin{enumerate}[(a)]
+
+\item[] \textbf{Problem 3 [15 points] \hspace*{3pt}} Show that for any $q$, \vspace*{-9pt}
+\[ R(h_r; q) \geq R(h^*),\]
+that is, the risk of the randomized classifier $h_r$ defined above is at least as high as the Bayes risk.
+
+\textit{\emph{Advice: As we saw in class, it is enough to show that the inequality holds for the conditional risk, i.e., that $R(h_r| \mathbf{x}) \geq R(h^*|\mathbf{x})$ for any $\mathbf{x}$.}}
+
+\problemAnswer{
+\vspace*{250pt}
+}
+
+\end{enumerate}
+\end{homeworkSection}
+
+\clearpage
+
+
+%----------------------------------------------------------------------------------------
+%	PART III
+%----------------------------------------------------------------------------------------
+
+\begin{homeworkSection}{IV. Softmax}
+In this section we will consider a discriminative model for a multi-class setup, in which the class labels take values in $\{ 1, \ldots, C\}$. A principled generalization of the logistic regression model to this setup is the \textit{softmax} model. It requires that we maintain a separate parameter vector for each class. The estimate for the posterior for class $c$, $c = 1, \ldots, C$ is
+
+\[
+\hat{p}(y=c| \x; \mathbf{W}) = \textrm{softmax} (\w_c \cdot \x) \triangleq \frac{\textrm{exp}(\w_c \cdot \x)}{\sum_{y=1}^C \textrm{exp} (\w_y \cdot \x)}, 
+\]
+
+where $\mathbf{W}$ is a $C \times d$ matrix, the $c$-th row of which is a vector $\w_c$ associated with class $c$.
+
+\begin{enumerate}
+\item[] \textbf{Problem 4 [15 points] \hspace*{3pt}}
+\begin{enumerate}
+\item Show that the Softmax model corresponds to modeling the log-odds between any two classes $c_1, c_2 \in \{ 1, \ldots, C \}$ by a linear function. In this problem, without loss of generality, you can assume that there is no bias ($\mathbf{b} = 0$), since it can be incorporated into $\mathbf{W}$ using a constant column of ones in $\x$. \\
+
+ \problemAnswer{
+\vspace*{150pt}}
+
+
+\item Furthermore, consider the binary case ($C = 2$). Show that in that case, for any two $D$-dimensional parameter vectors $\w_1$ and $\w_2$ in the Softmax model,
+there exists a single $D$-dimensional parameter vector $\v$ such that
+\[
+\frac{\textrm{exp}(\w_1 \cdot \x)}{\textrm{exp}(\w_1 \cdot \x) + \textrm{exp}(\w_2 \cdot \x)} = \sigma(\v \cdot \x),
+\]
+i.e., in the binary case the softmax model is equivalent to the logistic regression model.
+ 
+\end{enumerate} 
+ 
+\problemAnswer{
+\vspace*{130pt}}
+\end{enumerate}
+ 
+
+For notational convenience, let $z_c = \w_c \cdot \x$ denote the score of the linear predictor for class $c$ for a given input $\x$, for $c = 1, \ldots, C$. Then, 
+$$
+p_c = \hat{p}(y=c| \x; \mathbf{W}) = \frac{\textrm{exp}(z_c)}{\sum_{i=1}^C \textrm{exp} (z_i)}, \textrm{ for } c = 1, \ldots, C. 
+$$
+
+
+
+
+\begin{enumerate}
+\item[] \textbf{Problem 5 [15 points] \hspace*{3pt}}
+Show that $\frac{\partial p_c}{\partial z_k}$ is positive if $k=c$, and negative otherwise. Argue that increasing the value of $z_k$ must increase the corresponding probability value $p_k$ while decreasing all other probability values $p_i$ for any $i \neq k$.
+
+ \problemAnswer{
+\vspace*{150pt}}
+
+\item[] In class, we discussed how the posteriors under the Softmax model are invariant to shifting scores and how we can leverage this property to deal with the overflow. Here we consider an alternative wherein we scale the scores. Let $s > 0$ be any positive value. Let 
+$$
+q_c(s)=\frac{\exp \left(s \cdot z_c\right)}{\sum_{i=1}^K \exp \left(s \cdot z_i\right)}, \text { for } c=1, 2, \ldots, C \text {. }
+$$
+
+% Let $M=\max _{i=1}^C z_i$ 
+Let $M=\max  \{z_1, z_2, \ldots, z_C\}$ % be the maximum over all $z_i$. 
+and suppose that there are $K$ entries among $z_1, z_2, \ldots, z_C$ whose value is equal to $M$. 
+\item[] \textbf{Problem 6 [15 points] \hspace*{3pt}} Show that the following holds as we scale $s$:
+% statement regarding the limit of $q_c(s)$ holds when $s$ increases to positive infinity $+\infty$ :
+$$
+\lim _{s \rightarrow+\infty} q_j(s)= \begin{cases}0 & \text { if } z_j<M \\ \frac{1}{K} & \text { if } z_j=M\end{cases}. 
+$$
+
+ \problemAnswer{
+\vspace*{150pt}}
+
+
+
+
+
+\end{enumerate}
+
+ 
+\clearpage 
+
+We now turn to a practical exercise in learning the softmax model, which can be done very similarly to learning logistic regression - via (stochastic) gradient descent. We will consider the $L_2$ regularization
+
+\[ \left( \mathbf{W}^*, \mathbf{b}^* \right) = \textrm{argmax}_{\mathbf{W}, \mathbf{b}} \left\{ \frac{1}{N} \sum_{i=1}^{N} \textrm{log}~\hat{p}(y_i | \x_i; \mathbf{W}, \mathbf{b} ) - \lambda ||\mathbf{W}||^2 \right\}, \]
+
+where $||\mathbf{W}||$ is the Frobenius norm of the matrix $\mathbf{W}$ - look it up if you are not familiar with this term.
+
+\begin{enumerate}
+
+\item[] \textbf{Problem 7 [20 points] \hspace*{3pt}}
+Write down the log-loss of the $L_2$-regularized softmax model, and its gradients with respect to $\mathbf{W}$ and $\mathbf{b}$ (in the stochastic setting, i.e., computed over a single training example). Then, write the update equation(s) for the stochastic gradient descent, assuming learning rate $\eta$.
+
+{\bf{\emph{Advice}}}: You may find it helpful, both in derivation and in coding, to convert the scalar representation of the labels $y \in \{1,\ldots, C\}$ to a vector representation $\mathbf{t} \in \{0,1\}^C$, in which if $y_i=c$ then $t_{ij}=0$ for all $j \neq c$. This is sometimes called ``one-hot'' encoding of the labels: among $C$ elements of the $0/1$ label vector, exactly one element is ``hot'', i.e., set to $1$.
+
+We can then collect all the parameters in the {{$d\times C$}} matrix
+$\mathbf{W}$; the $c$-th column is $\mathbf{w}_c$. Let
+$\hat{\mathbf{p}}_i$ be the vector of estimated log-posterior values on the $i$-th example, i.e., $\hat{p}_{i,c}=\log\hat{p}(y_i=c|\x_i;\mathbf{W}, \mathbf{b})$. 
+Note that 
+\[\hat{p}_{i,c}\,=\,\mathbf{w}_c^T\mathbf{x}+b_c-\log\sum_{j=1}^Ce^{\mathbf{w}_j^T\mathbf{x} + b_j}.
+\]
+
+{{
+With the notation above we have that the log-likelihood on a single example is
+  \begin{align}
+\log p(y_i|\mathbf{x}_i;\mathbf{W}, \mathbf{b}) = \mathbf{t}_i^T\hat{\mathbf{p}}_i \nonumber
+  \end{align}
+}}
+
+\problemAnswer{
+\vspace*{220pt}}
+
+
+\problemAnswer{
+\vspace*{580pt}}
+
+\end{enumerate}
+
+We are now ready to apply the softmax model to the problem of classifying handwritten digits. We will work with the MNIST data set, which has served as a popular benchmark for classification methods over many years. Each example is a  $24$ by $24$ pixel grayscale image; we will be working with a vectorized representation of the images, converted to a $576$-dimensional vector with values between 0 (black) and 1 (white). The data set has four partitions you will work with:
+\begin{itemize}
+\item Small training set of 400 examples;
+\item Large training set of 7000 examples;
+\item Validation set of 2000 examples;
+\item Test set of 1000 examples (no labels).
+\end{itemize}
+
+Each set is divided roughly equally among 10 classes for digits 0 through 9. There are two training sets so we could investigate the effect of data scarcity (or relative abundance) on training a linear model for this task.
+
+\begin{enumerate}
+
+\item[] \textbf{Problem 8 [80 points] \hspace*{3pt}}
+In this problem you will implement the gradient update procedure in the previous problem in order to classify images of handwritten digits. We have provided skeleton code in the Jupyter notebook that you will have to modify in order to get the best possible prediction results.
+
+You will have to:
+
+\begin{itemize}
+\item Write the code to compute softmax predictions from model ``scores'' in
+\texttt{softmax}.
+\item  Write the computation for the gradient with respect to $\mathbf{W}$ and $\mathbf{b}$ in \texttt{calcGrad}.
+\item Write the update rule using the gradients and a step size in \texttt{modelUpdate}
+\item Fill in a set of values for the regularization parameter \texttt{lambda} for which you will evaluate the performance of the model.
+\end{itemize}
+
+We have labeled parts of the skeleton code \texttt{YOUR CODE HERE}, where you will need to make changes.
+
+We have provided some suggested values for the ``hyper-parameters'' of the learning algorithm: size of the mini-batch, stopping criteria (currently just limit on number of iterations), the settings for the initial learning rate and for decreasing its value over iterations (or not). These should be a reasonable starting point, but you are encouraged to experiment with their values, and to consider adding additional variations: changing the mechanism for selection of examples in the mini-batch (how should the data be sampled? should the mini-batch be constrained to be representative of all the classes?), additional stopping criteria, etc.
+
+Feel free to guess appropriate values, or to tune them on the validation set. We have already provided code that evaluates the error rate on the training set and the validation set after the training has finished.
+
+Your tuning procedure and any design choices, and the final set of values for all the hyper-parameters chosen for the final model, should be clearly documented in the notebook; please write any comments directly in the notebook rather than in the PDF file.
+
+Please report the following statistics for your model in the write-up: the validation error and the confusion matrix. The confusion matrix in a classification experiment with $C$ classes is a $C \times C$ matrix $\mathbf{M}$ in which $M_{ij}$ is the number of times an example with true label $i$ was classified as $j$.
+
+In addition, visualize the parameters of the learned model. Since these are in the same domain as the input vectors, we can visualize them as images. Specifically, ignore the bias term, and use for instance \texttt{plt.imshow(W[:, i].reshape(24, 24))} to show the vector $\w_i$ associated with class $i$. Try to develop and write down an intuitive explanation of what the resulting images show.
+
+Finally, compare and contrast the behavior of training, in particular the role of regularization, in the two data regimes (small vs large data set). Write your observations and conclusions in the notebook.
+
+For the final evaluation, we have set up two Kaggle competitions to which
+you will be submitting your final predictions on a held-out testing set:
+
+\begin{itemize}
+\item MNIST small: \url{https://www.kaggle.com/t/47492cba7db440ea9e93bfd9e6efb5c9} 
+\item MNIST large: \url{https://www.kaggle.com/t/cfeb17ffb868424fadef024b49921f89}
+\end{itemize}
+
+
+
+First, you will have to create a Kaggle account (with your \texttt{jhu.edu} email). Once you have access to the competition pages (when you have an account follow the invite links above to gain access), download the data file by clicking Data on the left-side menu. The file named \texttt{nmnist.h5} is listed here in both competitions. This file contains \texttt{small\_train}, \texttt{large\_train}, \texttt{val}, and \texttt{kaggle} (test) partitions, which can be accessed using the provided \texttt{load\_data} function. The data loaded from these partitions is of dimension
+\[N \times 576 \]
+with elements between $0$ and $1$ (where $N$ is the number of examples in the partition), and the label matrix loaded from the training and validation partitions is of size
+\[N \times 10\]
+(since there are 10 digit classes).
+
+Read through all three information pages carefully (Description, Evaluation and Rules) and accept the rules. You will now be ready to make submissions. The two competitions have the same goal and structure; one is for models trained on 400 examples (small) and the other for the models trained on 20 times as many examples (large). You should treat these two data sets separately when deciding your hyper-parameters.
+
+Our code will automatically evaluate your model and produce a Kaggle submission file for you, e.g. \texttt{submission-small.csv}. Once you have accepted the rules, there will be an option to ``Make a submission'', where you can upload this CSV file. The testing set that is evaluated for the Kaggle submission contains an additional 1,000 samples with unknown labels, to make sure you did not overfit the testing set. To ensure you do not overfit this held-out set, \it{we have limited your submissions to two per day, so start early and you will get more chances if you make mistakes.} Your score will appear on a leaderboard that everyone can see. 
+
+\end{enumerate}
+
+
+
+\end{homeworkSection}
+
+\end{document}
