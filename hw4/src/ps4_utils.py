@@ -27,20 +27,24 @@ def load_experiment(data_fn, experiment_name):
     # -- val data as list containing                            ""
     # -- number of unique class labels
     # -- feature dimension of data
-    return Xtrain,Xval,num_classes,num_features
+    return Xtrain, Xval, num_classes, num_features
 
 class AbstractGenerativeModel(object):
     def __init__(self, CLASSES, NUM_FEATURES):
         self.num_classes = CLASSES
         self.num_features = NUM_FEATURES
         self.params = dict()
+        
     def pack_params(self, X, class_idx):
         raise NotImplementedError("Implemented within MM/NB models.")
+    
     def classify(self, X):
         raise NotImplementedError("Implemented within MM/NB models.")
+    
     def train(self, X):
         for c in range(self.num_classes):
             self.pack_params(X, c)
+            
     def val(self, X, acc=0, N=0):
         for c in range(self.num_classes):
             acc += np.sum((self.classify(X[c]) == c).astype(np.int32))

@@ -25,15 +25,20 @@ class AbstractGenerativeModel(object):
         self.num_classes = CLASSES
         self.num_features = NUM_FEATURES
         self.params = dict()
+        
     def pack_params(self, output_params, class_idx):
         raise NotImplementedError("Implement this method for both MixtureModel and NaiveBayesModel.")
+    
     def classify(self, X):
         raise NotImplementedError("Implement this method for both MixtureModel and NaiveBayesModel.")
+
     def fit(self, X, class_idx):
         raise NotImplementedError("Implement this method for both MixtureModel and NaiveBayesModel.")
+
     def train(self, X):
         for c in range(self.num_classes):
             self.pack_params(self.fit(X[c], c), c)
+            
     def val(self, X, acc=0, N=0):
         for c in range(self.num_classes):
             acc += np.sum((self.classify(X[c]) == c).astype(np.int32))
